@@ -1,14 +1,16 @@
 package com.hostel.model;
 
 public class Room {
-    private int number;
+    private String roomId;
     private boolean empty;
 
-    public Room(int number) {
-        this.number = number;
+    public Room(String roomId) {
+        this.roomId = roomId;
         this.empty = true; 
     }
-
+    public String getRoomId() {
+        return roomId;
+    }
     public boolean isEmpty() {
         return empty;
     }

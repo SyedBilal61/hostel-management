@@ -6,18 +6,18 @@ public class RoomTest {
 	
 		@Test
 	    void testRoomInitiallyEmpty() {
-	        Room room = new Room(101);
+	        Room room = new Room("A6");
 	        assertTrue(room.isEmpty(), "Room should start empty");
 	    }
 		@Test
 		void testBookRoom() {
-		    Room room = new Room(101);
+		    Room room = new Room("A6");
 		    room.book();
 		    assertFalse(room.isEmpty(), "Room should be booked");
 		}
 		@Test
 		void testCancelBooking() {
-		    Room room = new Room(101);
+		    Room room = new Room("A6");
 		    room.book();
 		    room.cancelBooking(); // 
 		    assertTrue(room.isEmpty(), "Room should be empty after cancelling booking");
