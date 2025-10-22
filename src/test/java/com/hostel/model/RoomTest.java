@@ -15,5 +15,11 @@ public class RoomTest {
 		    room.book();
 		    assertFalse(room.isEmpty(), "Room should be booked");
 		}
-
+		@Test
+		void testCancelBooking() {
+		    Room room = new Room(101);
+		    room.book();
+		    room.cancelBooking(); // 
+		    assertTrue(room.isEmpty(), "Room should be empty after cancelling booking");
+		}
 }

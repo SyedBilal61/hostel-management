@@ -15,4 +15,8 @@ public class Room {
     public void book() {
         empty = false;
     }
+    public void cancelBooking() {
+        empty = true;
+    }
+
 }
