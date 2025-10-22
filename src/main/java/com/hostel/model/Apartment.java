@@ -30,12 +30,25 @@ public class Apartment {
         for (Room room : rooms) {
             if (room.getRoomId().equals(roomId)) {
                 if (!room.isEmpty()) {
-                    return true; // already booked
+                    return false; // already booked
                 }
                 room.book();
                 return true;
             }
         }
         return false; // room not found
+    }
+    public boolean cancelBooking(String roomId) {
+        for (Room room : rooms) {
+            if (room.getRoomId().equals(roomId)) {
+                if (!room.isEmpty()) {      // only cancel if it's currently booked
+                    room.cancelBooking();   // mark as empty again
+                    return true;            // success
+                } else {
+                    return false;           // can't cancel an empty room
+                }
+            }
+        }
+        return false;                       // no such room found
     }
 }
