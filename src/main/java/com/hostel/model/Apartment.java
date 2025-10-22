@@ -30,7 +30,7 @@ public class Apartment {
         for (Room room : rooms) {
             if (room.getRoomId().equals(roomId)) {
                 if (!room.isEmpty()) {
-                    return false; // already booked
+                    return true; // already booked
                 }
                 room.book();
                 return true;

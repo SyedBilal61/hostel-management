@@ -38,4 +38,10 @@ public class ApartmentTest {
 	    boolean result = apartment.bookRoom("A1");
 	    assertFalse(result, "Booking an already booked room should fail");
 	}
+	@Test
+	void testBookNonExistentRoom() {
+	    Apartment apartment = new Apartment("A");
+	    boolean result = apartment.bookRoom("A99");
+	    assertFalse(result, "Booking a non-existent room should fail");
+	}
 }
