@@ -22,8 +22,20 @@ public class Apartment {
     public String getApartmentId() {
         return apartmentId;
     }
-    
     public List<Room> getRooms() {
         return rooms;
     }   
+ // TDD: minimal implementation to satisfy testBookAvailableRoom
+    public boolean bookRoom(String roomId) {
+        for (Room room : rooms) {
+            if (room.getRoomId().equals(roomId)) {
+                if (!room.isEmpty()) {
+                    return false; // already booked
+                }
+                room.book();
+                return true;
+            }
+        }
+        return false; // room not found
+    }
 }

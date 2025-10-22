@@ -10,7 +10,7 @@ public class ApartmentTest {
 	@Test
     void testApartmentHasSevenRooms() {
         Apartment apartment = new Apartment("A");
-        assertEquals(9, apartment.getRoomCount(), "Apartment A should have 7 rooms");
+        assertEquals(7, apartment.getRoomCount(), "Apartment A should have 7 rooms");
 }
 	
 	@ParameterizedTest
@@ -23,5 +23,12 @@ public class ApartmentTest {
 
         // Check last room ID
         assertEquals(apartmentId + "7", apartment.getRooms().get(6).getRoomId());
+    }
+	@Test
+    void testBookAvailableRoom() {
+        Apartment apartment = new Apartment("A");
+        boolean result = apartment.bookRoom("A1");
+        assertTrue(result, "Booking should succeed");
+        assertFalse(apartment.getRooms().get(0).isEmpty(), "Room should be booked");
     }
 }
