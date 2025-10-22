@@ -31,4 +31,11 @@ public class ApartmentTest {
         assertTrue(result, "Booking should succeed");
         assertFalse(apartment.getRooms().get(0).isEmpty(), "Room should be booked");
     }
+	@Test
+	void testBookAlreadyBookedRoom() {
+	    Apartment apartment = new Apartment("A");
+	    apartment.bookRoom("A1");
+	    boolean result = apartment.bookRoom("A1");
+	    assertFalse(result, "Booking an already booked room should fail");
+	}
 }
