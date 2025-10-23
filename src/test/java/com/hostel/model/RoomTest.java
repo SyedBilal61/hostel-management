@@ -1,25 +1,28 @@
 package com.hostel.model;
+
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class RoomTest {
-	
-		@Test
-	    void testRoomInitiallyEmpty() {
-	        Room room = new Room("A6");
-	        assertTrue(room.isEmpty(), "Room should start empty");
-	    }
-		@Test
-		void testBookRoom() {
-		    Room room = new Room("A6");
-		    room.book();
-		    assertFalse(room.isEmpty(), "Room should be booked");
-		}
-		@Test
-		void testCancelBooking() {
-		    Room room = new Room("A6");
-		    room.book();
-		    room.cancelBooking(); // 
-		    assertTrue(room.isEmpty(), "Room should be empty after cancelling booking");
-		}
+
+    @Test
+    void roomShouldBeEmptyInitially() {
+        Room room = new Room("A6");
+        assertTrue(room.isEmpty());
+    }
+
+    @Test
+    void canBookRoom() {
+        Room room = new Room("A6");
+        room.book();
+        assertFalse(room.isEmpty());
+    }
+
+    @Test
+    void canCancelBooking() {
+        Room room = new Room("A6");
+        room.book();
+        room.cancelBooking();
+        assertTrue(room.isEmpty());
+    }
 }

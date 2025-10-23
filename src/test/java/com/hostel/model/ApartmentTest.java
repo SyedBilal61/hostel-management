@@ -1,62 +1,102 @@
 package com.hostel.model;
+
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ApartmentTest {
 
-	@Test
-    void testApartmentHasSevenRooms() {
+    @Test
+    void apartmentShouldHaveSevenRooms() {
         Apartment apartment = new Apartment("A");
-        assertEquals(7, apartment.getRoomCount(), "Apartment A should have 7 rooms");
-}
-	
-	@ParameterizedTest
+        assertEquals(7, apartment.getRoomCount());
+    }
+
+    @ParameterizedTest
     @ValueSource(strings = {"A", "B", "C", "D", "E"})
-    void testApartmentRoomIds(String apartmentId) {
+    void roomIdsShouldBeCorrect(String apartmentId) {
         Apartment apartment = new Apartment(apartmentId);
 
-        // Check first room ID
         assertEquals(apartmentId + "1", apartment.getRooms().get(0).getRoomId());
-
-        // Check last room ID
         assertEquals(apartmentId + "7", apartment.getRooms().get(6).getRoomId());
     }
-	@Test
-    void testBookAvailableRoom() {
+
+    @Test
+    void canBookAnAvailableRoom() {
         Apartment apartment = new Apartment("A");
-        boolean result = apartment.bookRoom("A1");
-        assertTrue(result, "Booking should succeed");
-        assertFalse(apartment.getRooms().get(0).isEmpty(), "Room should be booked");
+        boolean booked = apartment.bookRoom("A1");
+
+        assertTrue(booked);
+        assertFalse(apartment.getRooms().get(0).isEmpty());
     }
-	@Test
-	void testBookAlreadyBookedRoom() {
-	    Apartment apartment = new Apartment("A");
-	    apartment.bookRoom("A1");
-	    boolean result = apartment.bookRoom("A1");
-	    assertFalse(result, "Booking an already booked room should fail");
-	}
-	@Test
-	void testBookNonExistentRoom() {
-	    Apartment apartment = new Apartment("A");
-	    boolean result = apartment.bookRoom("A99");
-	    assertFalse(result, "Booking a non-existent room should fail");
-	}
-	@Test
-	void testCancelBookedRoom() {
-	    Apartment apartment = new Apartment("A");
 
-	    // First book a room successfully
-	    boolean booked = apartment.bookRoom("A1");
-	    assertTrue(booked, "Room A1 should be booked first");
+    @Test
+    void cannotBookAlreadyBookedRoom() {
+        Apartment apartment = new Apartment("A");
+        apartment.bookRoom("A1");
+        boolean bookedAgain = apartment.bookRoom("A1");
 
-	    // Then cancel the booking
-	    boolean cancelled = apartment.cancelBooking("A1");
+        assertFalse(bookedAgain);
+    }
 
-	    // Verify
-	    assertTrue(cancelled, "Cancelling a booked room should succeed");
-	    assertTrue(apartment.getRooms().get(0).isEmpty(), "Room A1 should be empty after cancellation");
-	}
+    @Test
+    void cannotBookNonExistentRoom() {
+        Apartment apartment = new Apartment("A");
+        boolean booked = apartment.bookRoom("A99");
+
+        assertFalse(booked);
+    }
+
+    @Test
+    void canCancelABookedRoom() {
+        Apartment apartment = new Apartment("A");
+
+        apartment.bookRoom("A1");
+        boolean cancelled = apartment.cancelBooking("A1");
+
+        assertTrue(cancelled);
+        assertTrue(apartment.getRooms().get(0).isEmpty());
+    }
+
+    @Test
+    void cannotCancelAnEmptyRoom() {
+        Apartment apartment = new Apartment("A");
+
+        boolean cancelled = apartment.cancelBooking("A1");
+
+        assertFalse(cancelled);
+    }
+
+    @Test
+    void getAvailableRoomsShouldReturnCorrectCount() {
+        Apartment apartment = new Apartment("A");
+        apartment.bookRoom("A1");
+        apartment.bookRoom("A2");
+
+        List<Room> available = apartment.getAvailableRooms();
+        assertEquals(5, available.size());
+        assertTrue(available.stream().noneMatch(r -> r.getRoomId().equals("A1")));
+        assertTrue(available.stream().noneMatch(r -> r.getRoomId().equals("A2")));
+    }
+    @Test
+    void testGetBookedRooms() {
+        Apartment apartment = new Apartment("A");
+
+        // Book a few rooms
+        apartment.bookRoom("A1");
+        apartment.bookRoom("A3");
+
+        // Get booked rooms
+        List<Room> bookedRooms = apartment.getBookedRooms();
+
+        // Verify
+        assertEquals(2, bookedRooms.size(), "There should be 2 booked rooms");
+        assertTrue(bookedRooms.stream().anyMatch(r -> r.getRoomId().equals("A1")));
+        assertTrue(bookedRooms.stream().anyMatch(r -> r.getRoomId().equals("A3")));
+    }
+
 }
