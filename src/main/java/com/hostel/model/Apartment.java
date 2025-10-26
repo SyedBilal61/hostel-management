@@ -1,12 +1,10 @@
 package com.hostel.model;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class Apartment {
     private String apartmentId;
     private List<Room> rooms;
-
     public Apartment(String apartmentId) {
         this.apartmentId = apartmentId;
         this.rooms = new ArrayList<>();
@@ -16,19 +14,15 @@ public class Apartment {
             rooms.add(new Room(apartmentId + i));
         }
     }
-
     public String getApartmentId() {
         return apartmentId;
     }
-
     public List<Room> getRooms() {
         return rooms;
     }
-
     public int getRoomCount() {
         return rooms.size();
     }
-
     // try to book a room by its ID
     public boolean bookRoom(String roomId) {
         for (Room room : rooms) {
@@ -42,7 +36,6 @@ public class Apartment {
         }
         return false; // room not found
     }
-
     // try to cancel booking by room ID
     public boolean cancelBooking(String roomId) {
         for (Room room : rooms) {
