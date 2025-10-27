@@ -17,4 +17,12 @@ class ApartmentExceptionPracticeTest {
 
         assertEquals("Room A99 does not exist", exception.getMessage());
     }
+    @Test
+    void bookingExistingRoomSucceeds() {
+        Apartment apartment = new Apartment("A"); // rooms A1–A7
+        ApartmentExceptionPractice practice = new ApartmentExceptionPractice(apartment);
+
+        assertDoesNotThrow(() -> practice.bookRoom("A1")); // existing room
+    }
+    
 }
