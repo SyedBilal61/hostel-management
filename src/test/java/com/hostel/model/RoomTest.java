@@ -15,6 +15,7 @@ public class RoomTest {
     void canBookRoom() {
         Room room = new Room("A6");
         room.book();
+        System.out.println(room); // 👈 this line prints using toString(), 
         assertFalse(room.isEmpty());
     }
 
@@ -24,5 +25,11 @@ public class RoomTest {
         room.book();
         room.cancelBooking();
         assertTrue(room.isEmpty());
+    }
+    @Test
+    void bookingAlreadyBookedRoomReturnsFalse() {
+        Room room = new Room("A6");
+        room.book(); // first booking succeeds
+        assertFalse(room.book()); // second booking should return false
     }
 }
