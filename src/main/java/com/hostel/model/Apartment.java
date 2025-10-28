@@ -64,7 +64,7 @@ public class Apartment {
     public List<Room> getBookedRooms() {
         List<Room> booked = new ArrayList<>();
         for (Room room : rooms) {
-            if (!room.isEmpty()) {  // if room is booked
+            if (!room.isEmpty()) {  // // if it's not empty → booked
                 booked.add(room);
             }
         }

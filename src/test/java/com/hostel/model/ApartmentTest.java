@@ -98,5 +98,16 @@ public class ApartmentTest {
         assertTrue(bookedRooms.stream().anyMatch(r -> r.getRoomId().equals("A1")));
         assertTrue(bookedRooms.stream().anyMatch(r -> r.getRoomId().equals("A3")));
     }
-
+    //Test added for improve the coverage 
+    @Test
+    void testGetApartmentId() {
+        Apartment apartment = new Apartment("A");
+        assertEquals("A", apartment.getApartmentId());
+    }
+    @Test
+    void cannotCancelNonExistentRoom() {
+        Apartment apartment = new Apartment("A");
+        boolean cancelled = apartment.cancelBooking("A99");
+        assertFalse(cancelled);
+    }
 }
