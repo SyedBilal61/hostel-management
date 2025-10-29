@@ -14,8 +14,9 @@ public class RoomTest {
     @Test
     void canBookRoom() {
         Room room = new Room("A6");
-        room.book();
+        boolean result = room.book();
         System.out.println(room); // 👈 this line prints using toString(), 
+        assertTrue(result, "Expected book() to return true when booking an empty room");
         assertFalse(room.isEmpty());
     }
 
@@ -32,4 +33,7 @@ public class RoomTest {
         room.book(); // first booking succeeds
         assertFalse(room.book()); // second booking should return false
     }
+
+    
+
 }
