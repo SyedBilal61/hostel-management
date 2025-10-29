@@ -33,7 +33,16 @@ public class RoomTest {
         room.book(); // first booking succeeds
         assertFalse(room.book()); // second booking should return false
     }
+    //For Kiling a Mutant that is survived it the 
+    @Test 
+    void toStringShouldContainRoomDetails() {
+        Room room = new Room("A6");
+        String text = room.toString();
 
-    
+        // Check that toString contains room ID
+        assertTrue(text.contains("A6"), "toString() should include the room ID");
 
+        //Check that toString contains room state
+        assertTrue(text.contains("empty=true"), "toString() should include the empty state");
+    }
 }
